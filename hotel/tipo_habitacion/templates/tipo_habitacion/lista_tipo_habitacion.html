@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Tipos de Habitación</h1>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Capacidad</th>
+            <th>Servicios</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tipo in tipos %}
+        <tr>
+            <td>{{ tipo.nombre }}</td>
+            <td>{{ tipo.descripcion }}</td>
+            <td>{{ tipo.precio }}</td>
+            <td>{{ tipo.capacidad }}</td>
+            <td>{{ tipo.servicios }}</td>
+            <td>
+                <a href="{% url 'editar_tipo_habitacion' tipo.id %}">Editar</a> |
+                <a href="{% url 'eliminar_tipo_habitacion' tipo.id %}" onclick="return confirm('¿Eliminar este tipo?');">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<h2>{{ accion }} Tipo de Habitación</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{{ accion }}</button>
+    {% if editando %}
+        <a href="{% url 'lista_tipo_habitacion' %}">Cancelar</a>
+    {% endif %}
+</form>
+
+{% endblock %}

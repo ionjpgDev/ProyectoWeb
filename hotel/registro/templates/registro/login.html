@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Iniciar sesión</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary" type="submit">Ingresar</button>
+    </form>
+    {% if form.errors %}
+      <div class="alert alert-danger mt-3">
+        Por favor, corrige los errores en el formulario.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

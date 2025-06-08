@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Habitaciones</h1>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Tipo</th>
+            <th>Disponible</th>
+            <th>Piso</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for habitacion in habitaciones %}
+        <tr>
+            <td>{{ habitacion.numero }}</td>
+            <td>{{ habitacion.tipo }}</td>
+            <td>{{ habitacion.disponible|yesno:"Sí,No" }}</td>
+            <td>{{ habitacion.piso }}</td>
+            <td>{{ habitacion.descripcion }}</td>
+            <td>
+                <a href="{% url 'editar_habitacion' habitacion.id %}">Editar</a> |
+                <a href="{% url 'eliminar_habitacion' habitacion.id %}" onclick="return confirm('¿Eliminar esta habitación?');">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<h2>{{ accion }} Habitación</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{{ accion }}</button>
+    {% if editando %}
+        <a href="{% url 'lista_habitacion' %}">Cancelar</a>
+    {% endif %}
+</form>
+
+{% endblock %}
