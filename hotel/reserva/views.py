@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Reserva
 from .forms import ReservaForm
+from 
+
+def index(request):
+    return render(request,'index.html')
 
 def lista_reserva(request):
     reservas = Reserva.objects.all()
