@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Página No Encontrada - Hotel{% endblock %}
+
+{% block header %}Error 404 - Página No Encontrada{% endblock %}
+
+{% block content %}
+  <div class="alert alert-danger" role="alert">
+    Lo sentimos, la página que buscas no existe.
+  </div>
+  <p>Puede que hayas escrito mal la dirección o que la página haya sido movida.</p>
+  <a href="{% url 'index' %}" class="btn btn-primary">Volver al inicio</a>
+{% endblock %}

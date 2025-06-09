@@ -44,3 +44,6 @@ def eliminar_reserva(request, reserva_id):
     reserva = get_object_or_404(Reserva, id=reserva_id)
     reserva.delete()
     return redirect('lista_reserva')
+
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
