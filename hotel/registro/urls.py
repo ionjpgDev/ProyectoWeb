@@ -8,6 +8,6 @@ from . import views
 urlpatterns = [
     path('registro/', views.registro, name='registro'),
     path('accounts/logout/', LogoutView.as_view(next_page='/accounts/login/'), name='logout'),
-     path('accounts/login/', auth_views.LoginView.as_view(template_name='registro/login.html'), name='login'),
-     
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='registro/login.html'), name='login'),
+
 ]
