@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-rg)e!q)%31f7_zla@px%-e8c^ur+%jn2c=5sx*=ld60mvmo_rt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # Para pruebas. Luego debes poner el dominio de Render
 
 
 # Application definition
@@ -126,3 +126,4 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
