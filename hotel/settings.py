@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rg)e!q)%31f7_zla@px%-e8c^ur+%jn2c=5sx*=ld60mvmo_rt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']  # Para pruebas. Luego debes poner el dominio de Render
 
@@ -48,11 +48,13 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'hotel.urls'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/'  # o lo que prefieras
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
-
+# Configuración de sesiones
+SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos (opcional)
+SESSION_SAVE_EVERY_REQUEST = True  # La sesión se actualiza con cada request
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Sesión expira al cerrar el navegador
 import os
 
 TEMPLATES = [
