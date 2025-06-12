@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-rg)e!q)%31f7_zla@px%-e8c^ur+%jn2c=5sx*=ld60mvmo_rt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # Para pruebas. Luego debes poner el dominio de Render
 
 
 # Application definition
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ← Aquí
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,11 +48,13 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'hotel.urls'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/'  # o lo que prefieras
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
-
+# Configuración de sesiones
+SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos (opcional)
+SESSION_SAVE_EVERY_REQUEST = True  # La sesión se actualiza con cada request
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Sesión expira al cerrar el navegador
 import os
 
 TEMPLATES = [
@@ -115,14 +118,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Para tus archivos locales
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')    # Para collectstatic
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

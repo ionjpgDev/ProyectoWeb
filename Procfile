@@ -1,0 +1,1 @@
+gunicorn hotel.wsgi:application
