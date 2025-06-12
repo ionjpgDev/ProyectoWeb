@@ -39,34 +39,46 @@
   </head>
 
   <body>
-    <!-- NAVBAR BOOTSTRAP CON USUARIO -->
-    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand text-primary fw-bold" href="#"
-          >Y<span>Hoteles</span></a
-        >
-
+        <a class="navbar-brand" href="{% url 'index' %}">Hotel</a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#menuHotel"
+          data-bs-target="#navbarNav"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="collapse navbar-collapse" id="menuHotel">
+        <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'perfil_usuario' %}"
+                >Mi Perfil</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'mis_reservas' %}"
+                >Mis Reservas</a
+              >
+            </li>
+            {% if user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'administracion_hotel' %}"
+                >Administración</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'lista_cliente' %}"
                 >Lista de Clientes</a
               >
             </li>
+            {% endif %} {% endif %}
           </ul>
-
           <div class="d-flex align-items-center">
             {% if user.is_authenticated %}
             <span class="me-2 fw-semibold text-dark"
@@ -99,8 +111,25 @@
       </div>
     </nav>
 
+    <div class="container mt-4">
+      <h1>
+        Bienvenido{% if user.is_authenticated %}, {{ user.username }}{% endif %}
+        al Hotel
+      </h1>
+      {% if user.is_authenticated %}
+      <p>Puedes ver y gestionar tus reservas desde el menú.</p>
+      {% if user.is_staff %}
+      <p>
+        Como administrador, tienes acceso a las opciones de administración del
+        hotel.
+      </p>
+      {% endif %} {% else %}
+      <p>Por favor inicia sesión o regístrate para hacer una reserva.</p>
+      {% endif %}
+    </div>
+
     <!-- CARRUSEL -->
-    <div id="carouselHotel" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselHotel" class="carousel slide mt-3" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img
@@ -168,7 +197,6 @@
       </form>
     </section>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
