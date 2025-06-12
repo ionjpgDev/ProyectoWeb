@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Cliente
+from reserva.models import Reserva
 from .forms import ClienteForm
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 
@@ -39,5 +41,10 @@ def perfil_usuario(request):
 
 @login_required
 def mis_reservas(request):
-    reservas = Reserva.objects.filter(cliente=request.user)
+    try:
+        cliente = request.user.cliente
+    except AttributeError:  # Si el usuario no tiene cliente
+        messages.error(request, "No tienes un perfil de cliente asociado. Por favor, contacta con el administrador.")
+        return redirect('perfil_usuario')  # O a donde prefieras
+    reservas = Reserva.objects.filter(cliente=cliente)
     return render(request, 'cliente/mis_reservas.html', {'reservas': reservas})

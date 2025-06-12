@@ -41,7 +41,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'index' %}">Hotel</a>
+        <a class="navbar-brand text-primary fw-bold" href="{% url 'index' %}">Y<span>Hoteles</span></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -61,13 +61,13 @@
                 >Mi Perfil</a
               >
             </li>
-            <li class="nav-item">
+            <li class="nav-item" >
               <a class="nav-link" href="{% url 'mis_reservas' %}"
                 >Mis Reservas</a
               >
             </li>
             {% if user.is_staff %}
-            
+
             <li class="nav-item">
               <a class="nav-link" href="{% url 'lista_cliente' %}"
                 >Lista de Clientes</a
@@ -108,12 +108,12 @@
     </nav>
 
     <div class="container mt-4">
-      <h1>
+      <h1 class='text-primary'>
         Bienvenido{% if user.is_authenticated %}, {{ user.username }}{% endif %}
         al Hotel
       </h1>
       {% if user.is_authenticated %}
-      <p>Puedes ver y gestionar tus reservas desde el menú.</p>
+      <p >Puedes ver y gestionar tus reservas desde el menú.</p>
       {% if user.is_staff %}
       <p>
         Como administrador, tienes acceso a las opciones de administración del
