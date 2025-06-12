@@ -49,3 +49,4 @@ def eliminar_reserva(request, reserva_id):
 
 def custom_404_view(request, exception):
     return render(request, '404.html', status=404)
+

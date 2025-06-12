@@ -32,3 +32,12 @@ def eliminar_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     cliente.delete()
     return redirect('lista_cliente')
+
+@login_required
+def perfil_usuario(request):
+    return render(request, 'cliente/perfil_usuario.html')
+
+@login_required
+def mis_reservas(request):
+    reservas = Reserva.objects.filter(cliente=request.user)
+    return render(request, 'cliente/mis_reservas.html', {'reservas': reservas})

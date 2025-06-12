@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Reservas</title>
+</head>
+<body>
+    <h2>Mis Reservas</h2>
+    {% if reservas %}
+      <ul>
+        {% for reserva in reservas %}
+          <li>
+            Reserva #{{ reserva.id }} - {{ reserva.habitacion }} del {{ reserva.fecha_inicio }} al {{ reserva.fecha_fin }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No tienes reservas.</p>
+    {% endif %}
+</body>
+</html>
