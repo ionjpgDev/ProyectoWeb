@@ -33,6 +33,12 @@
         background-color: #ffffff;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
+      .navbar-brand span {
+        color: #0dcaf0;
+      }
+      .navbar .nav-link {
+        font-weight: 500;
+      }
     </style>
   </head>
   <body>
@@ -64,13 +70,26 @@
               >
             </li>
             {% if user.is_staff %}
-            
             <li class="nav-item">
               <a class="nav-link" href="{% url 'lista_cliente' %}"
                 >Lista de Clientes</a
               >
             </li>
-            <!-- Puedes agregar más links de administración aquí -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lista_tipo_habitacion' %}"
+                >Lista Tipo Habitacion</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lista_habitacion' %}"
+                >Lista Habitacion</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lista_reserva' %}"
+                >Lista Reserva</a
+              >
+            </li>
             {% endif %} {% endif %}
           </ul>
           <div class="d-flex align-items-center">

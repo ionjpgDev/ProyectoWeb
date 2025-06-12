@@ -123,3 +123,25 @@ body {
 .campo button:hover {
   background-color: #007acc;
 }
+.carousel-item img {
+        max-height: 500px;
+        object-fit: cover;
+      }
+      .topbar {
+        background-color: #f8f9fa;
+        padding: 0.5rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+      }
+      .navbar-custom {
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-brand span {
+        color: #0dcaf0;
+      }
+      .navbar .nav-link {
+        font-weight: 500;
+      }
