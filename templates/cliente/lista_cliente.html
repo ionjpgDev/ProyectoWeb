@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class='text-primary'>Clientes</h1>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellido }}</td>
+            <td>{{ cliente.dni }}</td>
+            <td>{{ cliente.correo }}</td>
+            <td>
+                <a href="{% url 'editar_cliente' cliente.id %}">Editar</a> |
+                <a href="{% url 'eliminar_cliente' cliente.id %}" onclick="return confirm('¿Eliminar este cliente?');">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<h2>{{ accion }} Cliente</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{{ accion }}</button>
+    {% if editando %}
+        <a href="{% url 'lista_cliente' %}">Cancelar</a>
+    {% endif %}
+</form>
+
+{% endblock %}

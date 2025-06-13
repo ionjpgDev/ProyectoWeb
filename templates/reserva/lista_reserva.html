@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class='text-primary'>Reservas</h1>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Habitación</th>
+            <th>Fecha Entrada</th>
+            <th>Fecha Salida</th>
+            <th>Fecha Reserva</th>
+            <th>Estado</th>
+            <th>Comentarios</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reserva in reservas %}
+        <tr>
+            <td>{{ reserva.cliente }}</td>
+            <td>{{ reserva.habitacion }}</td>
+            <td>{{ reserva.fecha_entrada }}</td>
+            <td>{{ reserva.fecha_salida }}</td>
+            <td>{{ reserva.fecha_reserva }}</td>
+            <td>{{ reserva.get_estado_display }}</td>
+            <td>{{ reserva.comentarios }}</td>
+            <td>
+                <a href="{% url 'editar_reserva' reserva.id %}">Editar</a> |
+                <a href="{% url 'eliminar_reserva' reserva.id %}" onclick="return confirm('¿Eliminar esta reserva?');">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<h2>{{ accion }} Reserva</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{{ accion }}</button>
+    {% if editando %}
+        <a href="{% url 'lista_reserva' %}">Cancelar</a>
+    {% endif %}
+</form>
+
+{% endblock %}

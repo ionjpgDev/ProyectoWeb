@@ -1,0 +1,46 @@
+{% extends 'labase.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Mis Reservas</h2>
+  {% if reservas %}
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th scope="col">Habitación</th>
+            <th scope="col">Fecha de Llegada</th>
+            <th scope="col">Fecha de Salida</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reserva in reservas %}
+          <tr>
+            <td>{{ reserva.habitacion }}</td>
+            <td>{{ reserva.fecha_llegada }}</td>
+            <td>{{ reserva.fecha_salida }}</td>
+            <td>
+              <span class="badge {% if reserva.estado == 'Confirmada' %}bg-success{% elif reserva.estado == 'Pendiente' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
+                {{ reserva.estado }}
+              </span>
+            </td>
+            <td>
+              <!-- Puedes ajustar los botones según tus necesidades -->
+              <a href="{% url 'detalle_reserva' reserva.id %}" class="btn btn-outline-info btn-sm">Ver detalles</a>
+              {% if reserva.estado == 'Pendiente' %}
+                <a href="{% url 'cancelar_reserva' reserva.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Estás seguro de cancelar esta reserva?');">Cancelar</a>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="alert alert-info">No tienes reservas registradas.</div>
+  {% endif %}
+</div>
+{% endblock %}
