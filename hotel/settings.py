@@ -48,12 +48,10 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'hotel.urls'
 
 LOGIN_URL = 'login'
-<<<<<<< HEAD:hotel/settings.py
 LOGOUT_REDIRECT_URL = '/'
-=======
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
->>>>>>> upstream/RamaJonh:hotel/hotel/settings.py
 LOGIN_REDIRECT_URL = '/'
 
 # Configuración de sesiones
