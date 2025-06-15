@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Reserva
 from .forms import ReservaForm
-<<<<<<< HEAD:reserva/views.py
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-=======
->>>>>>> upstream/RamaJonh:hotel/reserva/views.py
 
 def index(request):
     return render(request,'index.html')

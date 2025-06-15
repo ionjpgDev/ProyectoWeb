@@ -41,10 +41,6 @@ def perfil_usuario(request):
 
 @login_required
 def mis_reservas(request):
-    try:
-        cliente = request.user.cliente
-    except AttributeError:  # Si el usuario no tiene cliente
-        messages.error(request, "No tienes un perfil de cliente asociado. Por favor, contacta con el administrador.")
-        return redirect('perfil_usuario')  # O a donde prefieras
+    cliente = request.user.cliente
     reservas = Reserva.objects.filter(cliente=cliente)
     return render(request, 'cliente/mis_reservas.html', {'reservas': reservas})
