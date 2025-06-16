@@ -48,8 +48,11 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'hotel.urls'
 
 LOGIN_URL = 'login'
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+
 
 # Configuración de sesiones
 SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos (opcional)
