@@ -14,22 +14,22 @@
       {{ form.non_field_errors }}
       <div class="mb-3">
         <label for="{{ form.habitacion.id_for_label }}" class="form-label">Habitación</label>
-        {{ form.habitacion|as_widget }}
+        {{ form.habitacion }}
         {{ form.habitacion.errors }}
       </div>
       <div class="mb-3">
         <label for="{{ form.fecha_entrada.id_for_label }}" class="form-label">Fecha de Entrada</label>
-        {{ form.fecha_entrada|as_widget }}
+        {{ form.fecha_entrada }}
         {{ form.fecha_entrada.errors }}
       </div>
       <div class="mb-3">
         <label for="{{ form.fecha_salida.id_for_label }}" class="form-label">Fecha de Salida</label>
-        {{ form.fecha_salida|as_widget }}
+        {{ form.fecha_salida }}
         {{ form.fecha_salida.errors }}
       </div>
       <div class="mb-3">
         <label for="{{ form.numero_personas.id_for_label }}" class="form-label">Número de Personas</label>
-        {{ form.numero_personas|as_widget }}
+        {{ form.numero_personas }}
         {{ form.numero_personas.errors }}
       </div>
       <button type="submit" class="btn btn-success w-100">Reservar</button>

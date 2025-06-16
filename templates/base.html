@@ -61,45 +61,65 @@
               <a class="nav-link" href="{% url 'index' %}">Inicio</a>
             </li>
             {% if user.is_authenticated and not user.is_staff %}
-              <li>
-                <a class="nav-link" href="{% url 'perfil_usuario' %}">Perfil</a>
-              </li>
-            {% endif %}
-            {% if user.is_staff %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'lista_cliente' %}">Lista de Clientes</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'lista_tipo_habitacion' %}">Lista Tipo Habitacion</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'lista_habitacion' %}">Lista Habitacion</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'lista_reserva' %}">Lista Reserva</a>
-              </li>
+            <li>
+              <a class="nav-link" href="{% url 'perfil_usuario' %}">Perfil</a>
+            </li>
+            {% endif %} {% if user.is_authenticated and not user.is_staff %}
+            <li>
+              <a class="nav-link" href="{% url 'mis_reservas' %}"
+                >Mis Reservas</a
+              >
+            </li>
+            {% endif %} {% if user.is_staff %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lista_cliente' %}"
+                >Lista de Clientes</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lista_tipo_habitacion' %}"
+                >Lista Tipo Habitacion</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lista_habitacion' %}"
+                >Lista Habitacion</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lista_reserva' %}"
+                >Lista Reserva</a
+              >
+            </li>
             {% endif %}
           </ul>
           <div class="d-flex align-items-center">
             {% if user.is_authenticated %}
-              <span class="me-2 fw-semibold text-dark">👤 {{ user.username }}</span>
-              <form
-                method="post"
-                action="{% url 'logout' %}"
-                style="display: inline"
+            <span class="me-2 fw-semibold text-dark"
+              >👤 {{ user.username }}</span
+            >
+            <form
+              method="post"
+              action="{% url 'logout' %}"
+              style="display: inline"
+            >
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="btn btn-outline-danger"
+                onclick="return confirm('¿Estás seguro de cerrar sesión?');"
               >
-                {% csrf_token %}
-                <button
-                  type="submit"
-                  class="btn btn-outline-danger"
-                  onclick="return confirm('¿Estás seguro de cerrar sesión?');"
-                >
-                  Cerrar sesión
-                </button>
-              </form>
+                Cerrar sesión
+              </button>
+            </form>
             {% else %}
-              <a class="btn btn-outline-primary me-2" href="{% url 'login' %}">Iniciar sesión</a>
-              <a class="btn btn-primary" href="{% url 'registro' %}">Registrarse</a>
+            <a class="btn btn-outline-primary me-2" href="{% url 'login' %}"
+              >Iniciar sesión</a
+            >
+            <a class="btn btn-primary" href="{% url 'registro' %}"
+              >Registrarse</a
+            >
             {% endif %}
           </div>
         </div>
