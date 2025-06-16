@@ -20,7 +20,7 @@ def index(request):
         if fecha_entrada and fecha_salida and tipo_id:
             fecha_entrada = datetime.strptime(fecha_entrada, '%Y-%m-%d').date()
             fecha_salida = datetime.strptime(fecha_salida, '%Y-%m-%d').date()
-            habitaciones = Habitacion.objects.filter(tipo_id=tipo_id)
+            habitaciones = Habitacion.objects.filter(tipo_id=tipo_id,disponible=True)
             disponibles = []
             for hab in habitaciones:
                 hay_reserva = Reserva.objects.filter(
@@ -49,7 +49,7 @@ def consultar_disponibilidad(request):
         fecha_entrada = datetime.strptime(fecha_entrada, '%Y-%m-%d').date()
         fecha_salida = datetime.strptime(fecha_salida, '%Y-%m-%d').date()
 
-        habitaciones = Habitacion.objects.filter(tipo_id=tipo_id)
+        habitaciones = Habitacion.objects.filter(tipo_id=tipo_id,disponible=True)
 
         for hab in habitaciones:
             hay_reserva = Reserva.objects.filter(
