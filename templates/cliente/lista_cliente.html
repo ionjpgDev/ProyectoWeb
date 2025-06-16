@@ -1,15 +1,117 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class='text-primary'>Clientes</h1>
+<style>
+    body {
+        background: linear-gradient(135deg, #f8cdda, #1e90ff); /* rosado-azul */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 20px;
+    }
 
-<table border="1" cellpadding="8" cellspacing="0">
+    h1, h2 {
+        color: #fff;
+        text-align: center;
+        text-shadow: 1px 1px 2px #00000080;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #ffffffcc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #1e90ff;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f2f2f2;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+        margin: 0 5px;
+        display: inline-block;
+    }
+
+    .btn-editar {
+        background-color: #1e90ff;
+    }
+
+    .btn-editar:hover {
+        background-color: #1c86ee;
+    }
+
+    .btn-eliminar {
+        background-color: #ff69b4;
+    }
+
+    .btn-eliminar:hover {
+        background-color: #ff85c1;
+    }
+
+    form {
+        background-color: #ffffffcc;
+        padding: 20px;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+        background-color: #ff69b4;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: #ff85c1;
+    }
+
+    .cancel-link {
+        display: inline-block;
+        margin-left: 15px;
+        color: #1e90ff;
+        font-weight: bold;
+    }
+
+    .cancel-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<h1>Clientes</h1>
+
+<table>
     <thead>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Apellido</th>
-            <th>DNI</th>
+            <th>CI</th>
             <th>Correo</th>
             <th>Acciones</th>
         </tr>
@@ -23,8 +125,8 @@
             <td>{{ cliente.dni }}</td>
             <td>{{ cliente.correo }}</td>
             <td>
-                <a href="{% url 'editar_cliente' cliente.id %}">Editar</a> |
-                <a href="{% url 'eliminar_cliente' cliente.id %}" onclick="return confirm('¿Eliminar este cliente?');">Eliminar</a>
+                <a href="{% url 'editar_cliente' cliente.id %}" class="btn btn-editar">Editar</a>
+                <a href="{% url 'eliminar_cliente' cliente.id %}" class="btn btn-eliminar" onclick="return confirm('¿Eliminar este cliente?');">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
@@ -40,8 +142,9 @@
     {{ form.as_p }}
     <button type="submit">{{ accion }}</button>
     {% if editando %}
-        <a href="{% url 'lista_cliente' %}">Cancelar</a>
+        <a href="{% url 'lista_cliente' %}" class="cancel-link">Cancelar</a>
     {% endif %}
 </form>
 
 {% endblock %}
+
