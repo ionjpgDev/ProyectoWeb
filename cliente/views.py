@@ -35,8 +35,14 @@ def eliminar_cliente(request, cliente_id):
     cliente.delete()
     return redirect('lista_cliente')
 
+
 @login_required
 def perfil_usuario(request):
+    # No permitir acceso a staff
+    if request.user.is_staff:
+        from django.http import HttpResponseForbidden
+        return HttpResponseForbidden("Los administradores no pueden editar perfil de cliente.")
+
     user = request.user
     cliente = getattr(user, 'cliente', None)
     if cliente:
@@ -44,7 +50,7 @@ def perfil_usuario(request):
             form = ClienteForm(request.POST, instance=cliente)
             if form.is_valid():
                 form.save()
-                return redirect('perfil_usuario')  # ← Si quieres, aquí sigue a perfil, o cambia a 'mis_reservas'
+                return redirect('perfil_usuario')
         else:
             form = ClienteForm(instance=cliente)
     else:
@@ -54,11 +60,10 @@ def perfil_usuario(request):
                 nuevo_cliente = form.save(commit=False)
                 nuevo_cliente.user = user
                 nuevo_cliente.save()
-                return redirect('index')  # ← Redirige aquí tras completar perfil
+                return redirect('index')
         else:
             form = ClienteForm()
-    return render(request, 'cliente/perfil_usuario.html', {'form': form, 'cliente': cliente})
-@login_required
+    return render(request, 'cliente/perfil_usuario.html', {'form': form, 'cliente': cliente})@login_required
 def mis_reservas(request):
     # Verifica si el usuario tiene perfil de cliente
     cliente = getattr(request.user, 'cliente', None)

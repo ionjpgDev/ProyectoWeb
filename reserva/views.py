@@ -105,3 +105,17 @@ def eliminar_reserva(request, reserva_id):
 def custom_404_view(request, exception):
     return render(request, '404.html', status=404)
 
+
+@login_required
+def mis_reservas(request):
+    # No permitir acceso a staff
+    if request.user.is_staff:
+        from django.http import HttpResponseForbidden
+        return HttpResponseForbidden("Los administradores no pueden ver reservas personales.")
+
+    cliente = getattr(request.user, 'cliente', None)
+    if not cliente:
+        messages.error(request, "Debes completar tu perfil de cliente para ver tus reservas.")
+        return redirect('perfil_usuario')
+    reservas = Reserva.objects.filter(cliente=cliente)
+    return render(request, 'cliente/mis_reservas.html', {'reservas': reservas})
