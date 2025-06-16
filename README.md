@@ -148,22 +148,10 @@ ProyectoWeb/
   - **urls.py**: Enrutamiento global del proyecto.
   - **asgi.py / wsgi.py**: Entradas para servidores ASGI/WSGI.
 - **static/**: Carpeta global de archivos estáticos comunes a todo el proyecto (puede incluir CSS, JS, imágenes compartidas).
-```
-> **Nota:** No incluir la carpeta del entorno virtual (`env/`) al comprimir el código fuente.
 
----
 
 ## 3. Modelo de Datos
 
 ### Diagrama Entidad-Relación
 
-![Diagrama ER](ruta_a_tu_diagrama_ER.png)
-
-### Modelo Relacional
-
-- **Habitación** (`id`, `número`, `tipo`, `estado`, `precio`)
-- **Cliente** (`id`, `nombre`, `email`, `teléfono`)
-- **Reserva** (`id`, `cliente_id`, `habitacion_id`, `fecha_entrada`, `fecha_salida`, `estado`)
-- (Agrega más tablas según tu implementación)
-
----
+![Diagrama ER](bd.png)
