@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Reserva
 from .forms import ReservaForm
+
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from habitacion.models import Habitacion
 from datetime import datetime
-from django.db.models import Q
+from django.contrib import messages
 from tipo_habitacion.models import TipoHabitacion
 
 def index(request):
@@ -119,3 +120,44 @@ def mis_reservas(request):
         return redirect('perfil_usuario')
     reservas = Reserva.objects.filter(cliente=cliente)
     return render(request, 'cliente/mis_reservas.html', {'reservas': reservas})
+
+
+@login_required
+def reservar(request):
+    cliente = getattr(request.user, 'cliente', None)
+    if not cliente or not cliente.perfil_confirmado:
+        messages.error(request, "Completa y confirma tu perfil de cliente antes de reservar.")
+        return redirect('perfil_usuario')
+
+    if request.method == 'POST':
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            reserva = form.save(commit=False)
+            reserva.cliente = cliente
+            reserva.save()
+            messages.success(request, "Reserva realizada correctamente.")
+            return redirect('mis_reservas')
+    else:
+        form = ReservaForm()
+
+    return render(request, 'reserva/reservar.html', {'form': form})
+
+@login_required
+def crear_reserva(request):
+    cliente = getattr(request.user, 'cliente', None)
+    if not cliente or not cliente.perfil_confirmado:
+        messages.error(request, "Debes completar y confirmar tu perfil antes de hacer una reserva.")
+        return redirect('perfil_usuario')
+
+    if request.method == 'POST':
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            reserva = form.save(commit=False)
+            reserva.cliente = cliente  # Asigna el cliente automáticamente
+            reserva.save()
+            messages.success(request, "¡Reserva realizada correctamente!")
+            return redirect('mis_reservas')
+    else:
+        form = ReservaForm()
+
+    return render(request, 'reserva/crear_reserva.html', {'form': form})
